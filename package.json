@@ -1,0 +1,27 @@
+{
+  "name": "Wafflemania",
+  "version": "1.0.0",
+  "description": "Wafflemania is a MERN stack application where users can create their favorite waffle combos to make decision making easy when waffle cravings hit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msommerfield/Wafflemania.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msommerfield/Wafflemania/issues"
+  },
+  "homepage": "https://github.com/msommerfield/Wafflemania#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1"
+  }
+}
