@@ -7,6 +7,7 @@ const WaffleSchema = new Schema({
         toppings: String
     },
     preferredCrispness: String,
+    preferredLocation: String,
     image: String
 })
 
