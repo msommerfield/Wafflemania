@@ -11,13 +11,13 @@ router.put('/:id', userController.update)
 router.delete('/:id', userController.delete)
 
 //waffle routes
-router.get('/', waffleController.index)
-router.get('/new', waffleController.new)
-router.post('/', waffleController.create)
-router.get('/:vinylId', waffleController.show)
-router.get('/:vinylId/edit', waffleController.edit)
-router.put('/:vinylId', waffleController.update)
-router.delete('/:vinylId', waffleController.delete)
+router.get('/:userId/waffles', waffleController.index)
+router.get('/:userId/waffles/new', waffleController.new)
+router.post('//:userId/waffles', waffleController.create)
+router.get('/:userId/waffles:userId', waffleController.show)
+router.get('/:userId/waffles:userId/edit', waffleController.edit)
+router.put('/:userId/waffles:userId', waffleController.update)
+router.delete('/:userId/waffles:userId', waffleController.delete)
 
 
 module.exports = router
