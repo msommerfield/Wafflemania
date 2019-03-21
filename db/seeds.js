@@ -47,6 +47,9 @@ const sadie = new User({
     waffles: [cheddar] 
 })
 
-
-
-User.remove({})
+User.deleteMany({})
+    .then(() => Waffle.deleteMany({})
+    .then(() => User.create(fred, sadie))
+    .then(() => Waffle.create(savory, peacan, cheddar))
+    .catch((err) => console.log(err))
+    .then(() => mongoose.connection.close())
