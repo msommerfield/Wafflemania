@@ -4,8 +4,16 @@
   "description": "Wafflemania is a MERN stack application where users can create their favorite waffle combos to make decision making easy when waffle cravings hit",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd client && npm i && npm run build"
   },
+
+  "engines": {
+    "node": "10.13.0"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/msommerfield/Wafflemania.git"
