@@ -1,4 +1,6 @@
+const express = require('express')
 const User = require('../models/User.js')
+const router = express.Router()
 
 const userController = {
     index: async (req,res) => {
@@ -55,9 +57,6 @@ const userController = {
             res.status(500).json(err)
         }
     }
+}
 
 module.exports =userController
-
-
-
-}
