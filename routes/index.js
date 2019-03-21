@@ -5,10 +5,10 @@ const userController = require('../controllers/userController')
 
 // //user routes
 router.get('/', userController.index)
-// router.post('/', userController.create)
+router.post('/', userController.create)
 router.get('/:id', userController.show)
-// router.put('/:id', userController.update)
-// router.delete('/:id', userController.delete)
+router.put('/:id', userController.update)
+router.delete('/:id', userController.delete)
 
 // //waffle routes
 // router.get('/:userId', waffleController.index)
