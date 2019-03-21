@@ -24,7 +24,7 @@ const userController = {
     },
 
     show: (req, res) => {
-        User.findById(req.params.id)
+        User.findById(req.params.userId)
             .then(user => {
                 res.send(user)
             })
@@ -33,7 +33,7 @@ const userController = {
 
     update: async (req, res) => {
         try {
-            const userId = req.params.id
+            const userId = req.params.userId
             const updatedUser = req.body
             const savedUser = await User.findByIdAndUpdate(userId, updatedUser, { new: true })
             res.json(savedUser)
@@ -46,7 +46,7 @@ const userController = {
     delete: async (req, res) => {
         console.log('DELETE')
         try {
-            const userId = req.params.id
+            const userId = req.params.userId
             const deletedUser = await User.findByIdAndRemove(userId)
             res.json(deletedUser)
         } catch (err) {
