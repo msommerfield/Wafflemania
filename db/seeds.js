@@ -2,8 +2,8 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGODB_URI)
 
+const Waffle = require('../models/Waffle.js')
 const User = require('../models/User.js')
-const Waffle = require('../models/Waffle')
 
 const savory = new Waffle({
     ingredients: {
@@ -48,7 +48,7 @@ const sadie = new User({
 })
 
 User.deleteMany({})
-    .then(() => Waffle.deleteMany({})
+    .then(() => Waffle.deleteMany({}))
     .then(() => User.create(fred, sadie))
     .then(() => Waffle.create(savory, peacan, cheddar))
     .catch((err) => console.log(err))

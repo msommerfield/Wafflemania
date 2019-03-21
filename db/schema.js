@@ -14,11 +14,11 @@ const WaffleSchema = new Schema({
 const UserSchema = new Schema({
     userName: String,
     password: String,
-    waffle: [WaffleSchema] 
+    waffles: [WaffleSchema] 
 })
 
 
 module.exports = {
     WaffleSchema: WaffleSchema,
-    UserSchema: UserSchema
+    UserSchema: UserSchema,
 }
