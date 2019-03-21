@@ -3,7 +3,48 @@ const User = require('../models/User.js')
 const Waffle = require('../models/Waffle.js')
 const router = express.Router()
 
+router.get('/:userId', (req, res) => {
+    User
+    .findById(req.params.userId)
+    .then(user => {
+        res.json(user)
+    })
+    .cath((err) => console.log(err))
+})
+
+router.get('/:userId/waffles/new', req, res) => {
+    User.findById(req.params.userId)
+    Waffle.create(req.body).then(user => {
+        user.waffles.push(waffle)
+        console.log(waffle)
+        user.save()
+        res.redirect(`/${userId}`)
+    })
+}
 
 
+router.post('/:userId/waffles', (req, res) => {
+    User.findById(req.params.userId).then(user => {
+        const newWaffle = new Waffle({})
+        user.waffles.push(newWaffle)
+
+        user.save().then((user) => {
+            res.json(newWaffle)
+        })
+    })
+})
+
+router.delete('/:userId/waffles/:waffleId', (req, res) => {
+    User.findById(req.params.userId).then(user => {
+        const filteredWaffles = user.waffles.filter(waffle => waffle._id.toString() !== req.params.waffleId)
+
+        user.waffles = filteredWaffles
+
+        user.save().then(user => {
+            user.waffles = user.waffles.reverse()
+            res.json(user.waffles)
+        })
+    })
+})
 
 module.exports = router
