@@ -2,10 +2,8 @@ const mongoose = require('./connection.js')
 const Schema = mongoose.Schema
 
 const WaffleSchema = new Schema({
-    ingredients: {
-        batter: String,
-        toppings: String
-    },
+    batter: String,
+    toppings: String,
     preferredCrispness: String,
     preferredLocation: String,
     imgLink: String
