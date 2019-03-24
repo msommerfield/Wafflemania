@@ -17,37 +17,30 @@ function Waffle(props) {
             <input
                 type="text"
                 name="batter"
-                onChange={(e) => props.handleChange(props.ingredients.batter, e)}
-                onMouseOut={(e) => props.updateWaffle(props.ingredients.batter, e)}
-                value={props.ingredients.batter}
+                onChange={(e) => props.handleChange(props.batter, e)}
+                onMouseOut={(e) => props.updateWaffle(props.batter, e)}
+                value={props.batter}
             />
             <input
                 type="text"
-                name="batter"
-                onChange={(e) => props.handleChange(props.ingredients.batter, e)}
-                onMouseOut={(e) => props.updateWaffle(props.ingredients.batter, e)}
-                value={props.ingredients.batter}
+                name="toppings"
+                onChange={(e) => props.handleChange(props.toppings, e)}
+                onMouseOut={(e) => props.updateWaffle(props.toppings, e)}
+                value={props.toppings}
             />
             <input
                 type="text"
-                name="batter"
-                onChange={(e) => props.handleChange(props.ingredients.batter, e)}
-                onMouseOut={(e) => props.updateWaffle(props.ingredients.batter, e)}
-                value={props.ingredients.batter}
+                name="preferredCrispness"
+                onChange={(e) => props.handleChange(props.preferredCrispness, e)}
+                onMouseOut={(e) => props.updateWaffle(props.preferredCrispness, e)}
+                value={props.preferredCrispness}
             />
             <input
                 type="text"
-                name="batter"
-                onChange={(e) => props.handleChange(props.ingredients.batter, e)}
-                onMouseOut={(e) => props.updateWaffle(props.ingredients.batter, e)}
-                value={props.ingredients.batter}
-            />
-            <input
-                type="text"
-                name="batter"
-                onChange={(e) => props.handleChange(props.ingredients.batter, e)}
-                onMouseOut={(e) => props.updateWaffle(props.ingredients.batter, e)}
-                value={props.ingredients.batter}
+                name="imgLink"
+                onChange={(e) => props.handleChange(props.imgLink, e)}
+                onMouseOut={(e) => props.updateWaffle(props.imgLink, e)}
+                value={props.imgLink}
             />
             
             
