@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
+import User from './User';
 
 const WaffleWrapper = styled.div`
     display: flex;
@@ -31,6 +32,14 @@ class UserLogin extends Component {
 
     createUser = () => {
         axios.post('/api/v1', {user: this.state.user})
+        const user = new User({
+            
+        })
+        
+        .then((user) => {
+                this.user.push(this.state.users)
+                user.save()
+            })
             .then(res => {
                 console.log(res.data)
                 this.setState({redirectToHome: true, createdUser: res.data})

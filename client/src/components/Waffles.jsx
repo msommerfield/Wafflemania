@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
-const DeleteButton = styled.button`
-    background-color: tomato;
-    color: #eee;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 15px;
-    font-size: 1em;
-    `
+// const DeleteButton = styled.button`
+//     background-color: tomato;
+//     color: #eee;
+//     font-weight: bold;
+//     cursor: pointer;
+//     padding: 15px;
+//     font-size: 1em;
+//     `;
 
 class Waffles extends Component {
     state = {
@@ -21,13 +22,26 @@ class Waffles extends Component {
             preferredLocation: '',
             imgLink: ''
         },
-        redirecToHome: false,
-        createdWaffle: {}
+        isWaffleFormDisplayed: false
     }
 
 
     componentDidMount = () => {
-        this.getAllWaffles()
+        axios.get('/api/v1').then(res => {
+            this.setState({ waffles: res.data })
+        })
+    }
+
+    toggleWaffleForm = () => {
+        this.setState((state, props) => {
+            return ({ isWaffleFormDisplayed: !state.isWaffleFormDisplayed })
+        })
+    }
+
+    handleChange = (e) => {
+        const cloneNewWaffle = { ...this.state.newWaffle }
+        cloneNewWaffle[e.target.name] = e.target.value
+        this.setState({ newWaffle: cloneNewWaffle })
     }
 
     getAllWaffles = () => {
@@ -39,10 +53,25 @@ class Waffles extends Component {
     }
 
     createWaffle = () => {
-        axios.post('/api/v1', { waffle: this.state.waffle })
+        axios.post('/api/v1', {
+            batter: this.state.waffle.batter,
+            toppings: this.state.waffle.toppings,
+            preferredCrispness: this.state.waffle.preferredCrispness,
+            imgLink: this.state.waffle.imgLink,
+        })
             .then(res => {
-                console.log(res.data)
-                this.setState({ redirectToHome: true, createdWaffle: res.data })
+                const wafflesList = [...this.state.waffles]
+                wafflesList.unshift(res.data)
+                this.setState({
+                    newWaffle: {
+                        batter: '',
+                        toppings: '',
+                        preferredCrispness: '',
+                        imgLink: ''
+                    },
+                    isWaffleFormDisplayed: false,
+                    waffles: wafflesList
+                })
             })
     }
 
@@ -52,52 +81,79 @@ class Waffles extends Component {
         this.setState({ waffle: newWaffle })
     }
 
-    handleSignUp = (e) => {
-        e.preventDefault()
-        this.createWaffle()
+    updateWaffle = (waffle, e) => {
+        const userId = this.props.match.params.userId
+        axios.patch(`/api/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
+            this.setState({ waffless: res.data.waffles })
+        })
     }
     render() {
         return (
             <div>
-                <div>
-                    <input
-                        type="text"
-                        name="batter"
-                        onChange={(e) => this.props.handleChange(this.props.batter, e)}
-                        onMouseOut={(e) => this.props.updateWaffle(this.props.batter, e)}
-                        value={this.props.batter}
-                    />
-                    <input
-                        type="text"
-                        name="toppings"
-                        onChange={(e) => this.props.handleChange(this.props.toppings, e)}
-                        onMouseOut={(e) => this.props.updateWaffle(this.props.toppings, e)}
-                        value={this.props.toppings}
-                    />
-                    <input
-                        type="text"
-                        name="preferredCrispness"
-                        onChange={(e) => this.props.handleChange(this.props.preferredCrispness, e)}
-                        onMouseOut={(e) => this.props.updateWaffle(this.props.preferredCrispness, e)}
-                        value={this.props.preferredCrispness}
-                    />
-                    <input
-                        type="text"
-                        name="imgLink"
-                        onChange={(e) => this.props.handleChange(this.props.imgLink, e)}
-                        onMouseOut={(e) => this.props.updateWaffle(this.props.imgLink, e)}
-                        value={this.props.imgLink}
-                    />
-
-
-                    <DeleteButton
-                        onClick={() => this.props.deleteWaffle(this.props.waffle)}
-                    >
-                        Delete waffle
-            </DeleteButton>
-                </div>
+                <h1>Waffles</h1>
+                {
+                    this.state.waffles.map(waffle => {
+                        return (
+                            <div key={waffle._id}>
+                                <Link
+                                    to={`/${waffle._id}`}
+                                >
+                                    {waffle.batter}
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+                <button onClick={this.toggleWaffleForm}>+ New Waffle</button>
+                {
+                    this.state.isWaffleFormDisplayed
+                        ? <form onSubmit={this.createWaffle}>
+                            <div>
+                                <label htmlFor="batter">Batter</label>
+                                <input
+                                    id="batter"
+                                    type="text"
+                                    name="batter"
+                                    onChange={this.handleChange}
+                                    value={this.state.newWaffle.batter}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="toppings">Toppings</label>
+                                <input
+                                    id="toppings"
+                                    type="text"
+                                    name="toppings"
+                                    onChange={this.handleChange}
+                                    value={this.state.newWaffle.toppings}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="preferredCrispness">Crispness</label>
+                                <input
+                                    id="preferredCrispness"
+                                    type="text"
+                                    name="preferredCrispness"
+                                    onChange={this.handleChange}
+                                    value={this.state.newWaffle.preferredCrispness}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="imgLink">Waffle pics</label>
+                                <input
+                                    id="imgLink"
+                                    type="text"
+                                    name="imgLink"
+                                    onChange={this.handleChange}
+                                    value={this.state.newWaffle.imgLink}
+                                />
+                            </div>
+                            <button>Create</button>
+                        </form>
+                        : null
+                }
             </div>
-        );
+        )
     }
 }
 
