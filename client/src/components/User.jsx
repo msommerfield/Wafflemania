@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class User extends Component {
     state = {
@@ -18,8 +18,10 @@ class User extends Component {
     }
 
     getAllUsers = () => {
-        axios.get('/api/users').then(res => {
+        axios.get('/api/v1').then(res => {
+            console.log(res)
             this.setState({users: res.data})
+
         })
     }
 
@@ -37,7 +39,17 @@ class User extends Component {
         return (
             <div>
                 <h1>Users</h1>
-                this.state.users
+                {
+                    this.state.users.map(user => {
+                        return(
+                            <Link
+                                to={`/users/${user._id}`}
+                            >
+                                {user.userName}
+                            </Link>
+                        )
+                    })
+                }
             </div>
         );
     }

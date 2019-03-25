@@ -7,7 +7,14 @@ import User from './User';
 const WaffleWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     `;
+
+const WaffleLogo = styled.div`
+    color: white;
+    max-height: 100px;
+`;
 
 class UserLogin extends Component {
     state = {
@@ -32,17 +39,16 @@ class UserLogin extends Component {
 
     createUser = () => {
         axios.post('/api/v1', {user: this.state.user})
-        const user = new User({
+
+
+        .then((res) => {
+                const copiedUsers = [...this.state.users]
+                copiedUsers.push(res.data)
+               
+                console.log(res)
             
-        })
-        
-        .then((user) => {
-                this.user.push(this.state.users)
-                user.save()
-            })
-            .then(res => {
-                console.log(res.data)
-                this.setState({redirectToHome: true, createdUser: res.data})
+         
+                this.setState({redirectToHome: true, createdUser: res.data, users: copiedUsers})
             })
     }
 
@@ -65,7 +71,9 @@ render() {
     return (
        
         <WaffleWrapper>
-        <h1>Wafflemania</h1>  
+            <WaffleLogo>
+                <h1>Wafflemania</h1>  
+            </WaffleLogo>
 
         <h4>Sign Up</h4>
         <form onSubmit={this.handleSignUp}>
