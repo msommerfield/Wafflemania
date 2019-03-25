@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Waffles from './components/Waffles.jsx'
+import Waffle from './components/Waffle.jsx'
 import UserLogin from './components/UserLogin.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
 import User from './components/User.jsx'
@@ -21,6 +22,7 @@ class App extends Component {
               <Route exact path="/" component={UserLogin} />
               <Route exact path="/:userId" component={User} />
               <Route exact path="/:userId/waffles" component={Waffles} />
+              <Route exact path="/:userId/waffles/:waffleId" component={Waffle} />
             </Switch>
           </div>
         </Router>

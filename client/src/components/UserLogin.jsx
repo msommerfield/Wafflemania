@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import styled from 'styled-components'
+
+const WaffleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    `;
 
 class UserLogin extends Component {
     state = {
@@ -48,7 +54,8 @@ render() {
     }
 
     return (
-        <div>
+       
+        <WaffleWrapper>
         <h1>Wafflemania</h1>  
 
         <h4>Sign Up</h4>
@@ -73,7 +80,8 @@ render() {
             </div>
             <button>Create User</button>
         </form>
-    </div>
+    </WaffleWrapper>
+    
 )
 }
 }

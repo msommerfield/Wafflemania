@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const DeleteButton = styled.button`
     background-color: tomato;
@@ -11,9 +12,56 @@ const DeleteButton = styled.button`
     font-size: 1em;
 `
 
-function Waffle(props) {
-    return (
-        <div>
+
+class Waffle extends Component {
+    state = {
+        waffles: [],
+        waffle: {
+            batter: '',
+            toppings: '',
+            preferredCrispness: '',
+            preferredLocation: '',
+            imgLink: ''
+        }, 
+        redirecToHome: false,
+        createdWaffle: {}
+    }
+    }
+
+    componentDidMount = () => {
+        this.getAllWaffles()
+    }
+
+    getAllUsers = () => {
+        axios.get(`/api/${userId}/waffles/${waffleId}`).then(res => {
+            this.setState({waffles: res.data})
+        })
+    }
+
+    createUser = () => {
+        axios.post('/api/v1', {waffle: this.state.waffle})
+            .then(res => {
+                console.log(res.data)
+                this.setState({redirectToHome: true, createdUser: res.data})
+            })
+    }
+
+    handleChange = (e) => {
+        const newWaffle = {...this.state.waffle}
+        newWaffle[e.target.name] = e.target.value
+        this.setState({waffle: newWaffle})
+    }
+
+    handleSignUp = (e) => {
+        e.preventDefault()
+        this.createWaffle()
+    }
+
+
+    render() {
+        return (
+            <div>
+                <div>
             <input
                 type="text"
                 name="batter"
@@ -50,8 +98,14 @@ function Waffle(props) {
                 Delete waffle
             </DeleteButton>
             </div>
-    )
+            </div>
+        );
+    }
 }
 
 export default Waffle;
+
+
+
+
 
