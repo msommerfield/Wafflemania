@@ -5,6 +5,8 @@ import Waffle from './components/Waffle.jsx'
 import UserLogin from './components/UserLogin.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
 import User from './components/User.jsx'
+import styled from 'styled-components'
+import img from './images/waffle-background.jpg'
 
 class App extends Component {
   render() {
@@ -14,9 +16,7 @@ class App extends Component {
           <div>
             <div></div>
             <div>
-              <NavigationBar/>
-
-                
+              <NavigationBar/> 
             </div>
             <Switch>
               <Route exact path="/" component={UserLogin} />
