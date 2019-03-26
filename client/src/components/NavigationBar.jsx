@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     a {
     color: white;
     text-decoration: none;
+    font-family: 'Pacifico', cursive;
+    font-size: 25px;
     cursor: pointer
     }
     `

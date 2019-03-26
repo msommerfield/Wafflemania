@@ -13,7 +13,7 @@ const WaffleWrapper = styled.div`
 
 const WaffleLogo = styled.div`
     color: white;
-    max-height: 150px;
+    font-size: 130px;
     font-family: 'Pacifico', cursive;
 `;
 

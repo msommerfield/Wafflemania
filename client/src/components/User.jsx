@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+// import styled from 'styled-components'
 
 class User extends Component {
     state = {
@@ -8,7 +9,7 @@ class User extends Component {
         user: {
             userName: '',
             password: '',
-        }, 
+        },
         redirecToHome: false,
         createdUser: {}
     }
@@ -20,33 +21,53 @@ class User extends Component {
     getAllUsers = () => {
         axios.get('/api/v1').then(res => {
             console.log(res)
-            this.setState({users: res.data})
+            this.setState({ users: res.data })
 
         })
     }
 
     createUser = () => {
-        axios.post('/api/v1', {user: this.state.user})
+        axios.post('/api/v1', { user: this.state.user })
             .then(res => {
                 console.log(res.data)
-                this.setState({redirectToHome: true, createdUser: res.data})
+                this.setState({ redirectToHome: true, createdUser: res.data })
             })
     }
 
+    deleteUser = () => {
+        const userId = this.props.match.params.userId
+        axios.delete(`/api/v1/${userId}`).then(res => {
+            const copiedUsers = [...this.state.users] 
+            const filteredUsers = copiedUsers.filter(user => user._id !== res.data._id)
+            this.setState({users: filteredUsers, redirectToHome: true})
+        })
+       
+    }
 
 
     render() {
+            if (this.state.redirectToHome) {
+                return (<Redirect to={{
+                    pathname:"/"
+                }} 
+                />)
+                }
         return (
             <div>
                 <h1>Waffle Enthusiasts</h1>
                 {
                     this.state.users.map(user => {
-                        return(
-                            <Link
-                                to={`/users/${user._id}/waffles`}
-                            >
-                                {user.userName}
-                            </Link>
+                        return (
+                            <div>
+                                <Link
+                                    to={`/users/${user._id}/waffles`}
+                                >
+                                    {user.userName}
+                                </Link>
+                                <div>
+                                    <button onClick={this.deleteUser}>Delete</button>
+                                </div>
+                            </div>
                         )
                     })
                 }
@@ -61,6 +82,6 @@ export default User;
 
 
 
-  
-  
+
+
 

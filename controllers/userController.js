@@ -48,7 +48,9 @@ const userController = {
         console.log('DELETE')
         try {
             const userId = req.params.userId
-            const deletedUser = await User.findByIdAndRemove(userId)
+            console.log(userId)
+            const deletedUser = await User.findByIdAndDelete(userId)
+            console.log(deletedUser)
             res.json(deletedUser)
         } catch (err) {
             console.log(err)
