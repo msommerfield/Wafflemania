@@ -49,14 +49,6 @@ class Waffles extends Component {
         })
     }
 
-    handleChange = (e) => {
-        const cloneNewWaffle = { ...this.state.newWaffle }
-        cloneNewWaffle[e.target.name] = e.target.value
-        this.setState({ newWaffle: cloneNewWaffle })
-    }
-
-
-
     createWaffle = () => {
         const userId = this.props.match.params.userId
         axios.post((`/api/v1/users/${userId}/waffles`), {
@@ -73,6 +65,7 @@ class Waffles extends Component {
                         batter: '',
                         toppings: '',
                         preferredCrispness: '',
+                        preferredLocation: '',
                         imgLink: ''
                     },
                     isWaffleFormDisplayed: false,
@@ -96,7 +89,7 @@ class Waffles extends Component {
     render() {
         return (
             <div>
-              {/* <h1>Waffles</h1>  */}
+              <h1>Waffles</h1> 
                 {
                     this.state.waffles.map(waffle => {
                         return (
@@ -115,6 +108,7 @@ class Waffles extends Component {
                 {
                     this.state.isWaffleFormDisplayed
                         ? <form onSubmit={this.createWaffle}>
+                        
                             <div>
                                 <label htmlFor="batter">Batter</label>
                                 <input
@@ -122,7 +116,6 @@ class Waffles extends Component {
                                     type="text"
                                     name="batter"
                                     onChange={this.handleChange}
-                                    value={this.state.newWaffle.batter}
                                 />
                             </div>
                             <div>
@@ -132,7 +125,6 @@ class Waffles extends Component {
                                     type="text"
                                     name="toppings"
                                     onChange={this.handleChange}
-                                    value={this.state.newWaffle.toppings}
                                 />
                             </div>
                             <div>
@@ -142,7 +134,15 @@ class Waffles extends Component {
                                     type="text"
                                     name="preferredCrispness"
                                     onChange={this.handleChange}
-                                    value={this.state.newWaffle.preferredCrispness}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="preferredLocation">Location</label>
+                                <input
+                                    id="preferredLocation"
+                                    type="text"
+                                    name="preferredLocation"
+                                    onChange={this.handleChange}
                                 />
                             </div>
                             <div>
@@ -152,7 +152,6 @@ class Waffles extends Component {
                                     type="text"
                                     name="imgLink"
                                     onChange={this.handleChange}
-                                    value={this.state.newWaffle.imgLink}
                                 />
                             </div>
                             <button>Create</button>
