@@ -43,7 +43,7 @@ class User extends Component {
                     this.state.users.map(user => {
                         return(
                             <Link
-                                to={`/users/${user._id}`}
+                                to={`/users/${user._id}/waffles`}
                             >
                                 {user.userName}
                             </Link>
