@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import styled from 'styled-components'
+import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
@@ -12,10 +12,15 @@ import { Link } from 'react-router-dom'
 //     font-size: 1em;
 //     `;
 
+const FormWaffle = styled.div`
+    font-family: 'Domine', serif;
+    justify-content: space-around;
+`;
+
 class Waffles extends Component {
     state = {
         waffles: [],
-        waffle: {
+        newWaffle: {
             batter: '',
             toppings: '',
             preferredCrispness: '',
@@ -27,10 +32,16 @@ class Waffles extends Component {
 
 
     componentDidMount = () => {
-        axios.get('/api/v1').then(res => {
-            this.setState({ waffles: res.data })
-        })
-    }
+            const userId = this.props.match.params.userId
+            console.log(userId)
+            axios.get(`/api/v1/${userId}/waffles`).then(res => {
+                console.log(res.data)
+                this.setState({ waffles: res.data })
+            })
+            
+            console.log(this.state.waffles)
+        }
+    
 
     toggleWaffleForm = () => {
         this.setState((state, props) => {
@@ -44,16 +55,11 @@ class Waffles extends Component {
         this.setState({ newWaffle: cloneNewWaffle })
     }
 
-    getAllWaffles = () => {
-        const userId = this.props.match.params.userId
 
-        axios.get(`/api/${userId}/waffles`).then(res => {
-            this.setState({ waffles: res.data })
-        })
-    }
 
     createWaffle = () => {
-        axios.post('/api/v1', {
+        const userId = this.props.match.params.userId
+        axios.post((`/api/v1/users/${userId}/waffles`), {
             batter: this.state.waffle.batter,
             toppings: this.state.waffle.toppings,
             preferredCrispness: this.state.waffle.preferredCrispness,
@@ -83,14 +89,14 @@ class Waffles extends Component {
 
     updateWaffle = (waffle, e) => {
         const userId = this.props.match.params.userId
-        axios.patch(`/api/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
+        axios.patch(`/api/v1/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
             this.setState({ waffless: res.data.waffles })
         })
     }
     render() {
         return (
             <div>
-                <h1>Waffles</h1>
+              {/* <h1>Waffles</h1>  */}
                 {
                     this.state.waffles.map(waffle => {
                         return (
@@ -104,6 +110,7 @@ class Waffles extends Component {
                         )
                     })
                 }
+                <FormWaffle>
                 <button onClick={this.toggleWaffleForm}>+ New Waffle</button>
                 {
                     this.state.isWaffleFormDisplayed
@@ -152,6 +159,7 @@ class Waffles extends Component {
                         </form>
                         : null
                 }
+            </FormWaffle>
             </div>
         )
     }

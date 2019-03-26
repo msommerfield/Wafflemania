@@ -7,13 +7,19 @@ import User from './User';
 const WaffleWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     `;
 
 const WaffleLogo = styled.div`
     color: white;
-    max-height: 100px;
+    max-height: 150px;
+    font-family: 'Pacifico', cursive;
+`;
+
+const FormWaffle = styled.div`
+    font-family: 'Domine', serif;
+    justify-content: space-around;
 `;
 
 class UserLogin extends Component {
@@ -75,6 +81,7 @@ render() {
                 <h1>Wafflemania</h1>  
             </WaffleLogo>
 
+        <FormWaffle>
         <h4>Sign Up</h4>
         <form onSubmit={this.handleSignUp}>
             <div>
@@ -97,6 +104,7 @@ render() {
             </div>
             <button>Create User</button>
         </form>
+        </FormWaffle>
     </WaffleWrapper>
     
 )
