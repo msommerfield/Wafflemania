@@ -3,32 +3,31 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-// const DeleteButton = styled.button`
-//     background-color: tomato;
-//     color: #eee;
-//     font-weight: bold;
-//     cursor: pointer;
-//     padding: 15px;
-//     font-size: 1em;
-//     `;
-
 const FormWaffle = styled.div`
+    /* display: flex; */
     font-family: 'Domine', serif;
-    justify-content: space-around;
+    justify-content: center;
     color: white;
 `;
 
 const FancyFont = styled.div`
     font-family: 'Pacifico', cursive;
+    color: white;
+`;
 
+const Pics = styled.div`
 img {
-    width: 240px;
+    width: 250px;
     height: auto;
- }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 `;
 
 class Waffles extends Component {
     state = {
+        userId: this.props.match.params.userId,
         waffles: [],
         newWaffle: {
             batter: '',
@@ -40,7 +39,6 @@ class Waffles extends Component {
         isWaffleFormDisplayed: false
     }
 
-
     componentDidMount = () => {
         this.getAllWaffles()
     }
@@ -48,7 +46,7 @@ class Waffles extends Component {
     getAllWaffles = () => {
         const userId = this.props.match.params.userId
         axios.get(`/api/v1/${userId}/waffles`).then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             this.setState({ waffles: res.data })
         })
     }
@@ -71,21 +69,13 @@ class Waffles extends Component {
     }
 
     handleChange = (e) => {
-
         const newWaffle = { ...this.state.newWaffle }
-
         newWaffle[e.target.name] = e.target.value
-
         this.setState({ newWaffle: newWaffle })
 
     }
 
-    // updateWaffle = (waffle, e) => {
-    //     const userId = this.props.match.params.userId
-    //     axios.patch(`/api/v1/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
-    //         this.setState({ waffless: res.data.waffles })
-    //     })
-    // }
+
     render() {
         return (
             <div>
@@ -95,9 +85,13 @@ class Waffles extends Component {
                         return (
                             <div key={waffle._id}>
                                 <Link
-                                    to={`/${waffle._id}`}
+                                 
+                                    to={`${this.state.userId}/waffles/${waffle._id}`}
                                 >
-                                   <img src={waffle.imgLink}></img>
+                                    <Pics>
+                                        {/* <img src={`${this.props.match.params.userId}/waffles/${waffle.imgLink}`}></img> */}
+                                        <img src={waffle.imgLink}></img>
+                                    </Pics>
                                 </Link>
                             </div>
                         )

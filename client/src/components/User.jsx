@@ -69,13 +69,13 @@ class User extends Component {
                         return (
                             <div>
                                 <Link
-                                    to={`/users/${user._id}/waffles`}
+                                    to={`/${user._id}/waffles`}
                                 >
                                     {user.userName}
                                 </Link>
-                                <PrimaryButton>
-                                    <button onClick={this.deleteUser}>Delete</button>
-                                </PrimaryButton>
+                                <div>
+                                    <PrimaryButton onClick={this.deleteUser}>Delete</PrimaryButton>
+                                </div>
                             </div>
                         )
                     })
