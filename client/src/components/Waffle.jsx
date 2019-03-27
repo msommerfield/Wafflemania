@@ -11,14 +11,22 @@ const FancyFont = styled.div`
     align-items: center;
 `;
 
- 
+const Pics = styled.div`
+img {
+    width: 250px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+`;
 
 
 
 class Waffle extends Component {
     state = {
-        waffles: [],
-        newWaffle: {
+        // userId: this.props.match.params.userId,
+        waffle: {
             batter: '',
             toppings: '',
             preferredCrispness: '',
@@ -28,22 +36,107 @@ class Waffle extends Component {
         isWaffleFormDisplayed: false
     }
 
- updateWaffle = (waffle, e) => {
+    componentDidMount = () => {
+        axios.get(`/api/v1/${this.props.match.params.userId}/waffles/${this.props.match.params.waffleId}`)
+            .then(res => {
+                this.setState({
+                    waffle: res.data
+                })
+            })
+    }
+
+    _handleChange = (event) => {
+        const attributeName = event.target.name;
+        const attributeValue = event.target.value;
+        const waffle = { ...this.state.waffle };
+        waffle[attributeName] = attributeValue;
+        this.setState({ waffle })
+};
+    updateWaffle = (event) => {
+        event.preventDefault()
+        const payload = this.state.waffle
         const userId = this.props.match.params.userId
-        axios.patch(`/api/v1/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
-            this.setState({ waffless: res.data.waffles })
-        })
+        const waffleId = this.props.match.params.waffleId
+        axios
+            .put(`/api/v1/${userId}/waffles/${waffleId}`, payload)
+            .then((res => {
+                console.log('submitting')
+                this.setState({redirect: true})
+            }))
+            .catch(err => console.log(err))
+            this.props.history.goBack()
     }
 
 
     render() {
         return (
-            <FancyFont>
-                <h1>Hi from a single waffle</h1>
-            </FancyFont>
-        );
+            
+            <div>
+                <FancyFont>
+                    <h1>All the single waffles</h1>
+                </FancyFont>
+                <div>{this.state.waffle.batter}</div>
+                <div>{this.state.waffle.toppings}</div>
+                <div>{this.state.waffle.preferredCrispness}</div>
+                <div>{this.state.waffle.preferredLocation}</div>
+                <Pics>
+                    <img src={this.state.waffle.imgLink}></img>
+                </Pics>
+                <div>
+                <form>
+                <div>
+                    <label htmlFor="batter">Batter: </label>
+                    <input 
+                    value={this.state.waffle.batter} 
+                    type="text" 
+                    name="batter" 
+                    onChange={this._handleChange}
+                    />
+            </div>
+            <div>
+                    <label htmlFor="toppings">Toppings</label>
+                    <input
+                    value={this.state.waffle.toppings}
+                    type="text"
+                    name="toppings"
+                    onChange={this._handleChange}
+                    />
+            </div>
+            <div>
+                    <label htmlFor="preferredCrispness">Preferred Crispness:</label>
+                    <input
+                    value={this.state.waffle.preferredCrispness}
+                    type="text"
+                    name="preferredCrispness"
+                    onChange={this._handleChange}
+                    />
+            </div>
+            <div>
+                    <label htmlFor="preferredLocation">Get this waffle at:</label>
+                    <input
+                    value={this.state.waffle.preferredLocation}
+                    type="text"
+                    name="preferredLocation"
+                    onChange={this._handleChange}
+                    />
+            </div>
+            <div>
+                    <label htmlFor="imgLink">Image Link: </label>
+                    <input
+                    value={this.state.waffle.imgLink}
+                    type="text"
+                    name="imgLink"
+                    onChange={this._handleChange}
+                    />
+            </div>
+            <button type="submit" onClick={this.updateWaffle}>Submit</button>
+                </form>
+            </div>
+            </div>
+        )
     }
 }
+
 
 export default Waffle;
 

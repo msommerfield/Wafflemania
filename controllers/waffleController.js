@@ -34,24 +34,28 @@ show: (req, res) => {
 
 update: (req, res) => {
     User.findById(req.params.userId).then(user => {
-        const update = req.body.waffle
-        const waffle = user.waffles.id(req.params.waffleId)
-        if (update.ingredients) {
-            waffle.ingredients = update.ingredients
-        }
-        if (update.preferredCrispness) {
-            waffle.preferredCrispness = update.preferredCrispness
-        }
-        if (update.preferredLocation) {
-            waffle.preferredLocation = update.preferredLocation
-        }
-        if (update.image) {
-            waffle.image = update.image
-        }
-
-        user.save().then((user) => {
-            user.waffles = user.waffles.reverse()
-            res.json(user)
+        const update = req.body
+        // const waffle = user.waffles.id(req.params.waffleId)
+        const waffleId = req.params.waffleId
+        // if (update.ingredients) {
+        //     waffle.ingredients = update.ingredients
+        // }
+        // if (update.preferredCrispness) {
+        //     waffle.preferredCrispness = update.preferredCrispness
+        // }
+        // if (update.preferredLocation) {
+        //     waffle.preferredLocation = update.preferredLocation
+        // }
+        // if (update.image) {
+        //     waffle.image = update.image
+        // }
+        // console.log(update)
+        Waffle.findByIdAndUpdate(waffleId, update)
+        .then(() => {
+            user.save().then((user) => {
+                user.waffles = user.waffles.reverse()
+                res.json(user)
+            })
         })
     })
 },

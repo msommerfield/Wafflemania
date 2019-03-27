@@ -86,10 +86,9 @@ class Waffles extends Component {
                             <div key={waffle._id}>
                                 <Link
                                  
-                                    to={`${this.state.userId}/waffles/${waffle._id}`}
+                                    to={`/${this.state.userId}/waffles/${waffle._id}`}
                                 >
                                     <Pics>
-                                        {/* <img src={`${this.props.match.params.userId}/waffles/${waffle.imgLink}`}></img> */}
                                         <img src={waffle.imgLink}></img>
                                     </Pics>
                                 </Link>
