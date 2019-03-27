@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-// import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 
 const FancyFont = styled.div`
@@ -25,7 +25,6 @@ img {
 
 class Waffle extends Component {
     state = {
-        // userId: this.props.match.params.userId,
         waffle: {
             batter: '',
             toppings: '',
@@ -33,7 +32,8 @@ class Waffle extends Component {
             preferredLocation: '',
             imgLink: ''
         },
-        isWaffleFormDisplayed: false
+        isWaffleFormDisplayed: false,
+        redirect: false
     }
 
     componentDidMount = () => {
@@ -67,8 +67,21 @@ class Waffle extends Component {
             this.props.history.goBack()
     }
 
+    deleteWaffle = async () => {
+        const userId = this.props.match.params.userId
+        console.log(userId)
+        const waffleId = this.props.match.params.waffleId
+        console.log(waffleId)
+        await axios.delete(`/api/v1/${userId}/waffles/${waffleId}`)
+        this.setState({ redirect: true })
+        console.log("CLICK CLICK BOOM")
+    }
+
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={`/${this.props.match.params.userId}/waffles`}/>
+        }
         return (
             
             <div>
@@ -131,7 +144,9 @@ class Waffle extends Component {
             </div>
             <button type="submit" onClick={this.updateWaffle}>Submit</button>
                 </form>
+                
             </div>
+            <button onClick={this.deleteWaffle}>Delete Waffle</button>
             </div>
         )
     }

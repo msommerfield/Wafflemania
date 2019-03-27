@@ -46,7 +46,6 @@ class Waffles extends Component {
     getAllWaffles = () => {
         const userId = this.props.match.params.userId
         axios.get(`/api/v1/${userId}/waffles`).then(res => {
-            // console.log(res.data)
             this.setState({ waffles: res.data })
         })
     }
