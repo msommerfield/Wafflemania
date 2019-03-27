@@ -15,10 +15,16 @@ import { Link } from 'react-router-dom'
 const FormWaffle = styled.div`
     font-family: 'Domine', serif;
     justify-content: space-around;
+    color: white;
 `;
 
 const FancyFont = styled.div`
     font-family: 'Pacifico', cursive;
+
+img {
+    width: 240px;
+    height: auto;
+ }
 `;
 
 class Waffles extends Component {
@@ -36,16 +42,16 @@ class Waffles extends Component {
 
 
     componentDidMount = () => {
+        this.getAllWaffles()
+    }
+
+    getAllWaffles = () => {
         const userId = this.props.match.params.userId
-        console.log(userId)
         axios.get(`/api/v1/${userId}/waffles`).then(res => {
             console.log(res.data)
             this.setState({ waffles: res.data })
         })
-
-        console.log(this.state.waffles)
     }
-
 
     toggleWaffleForm = () => {
         this.setState((state, props) => {
@@ -56,49 +62,30 @@ class Waffles extends Component {
     createWaffle = (e) => {
         e.preventDefault()
         const payload = this.state.newWaffle
-        console.log(payload)
         const userId = this.props.match.params.userId
-        axios
-            .post((`/api/v1/${userId}/waffles`, payload), {
-                // toppings: this.state.waffle.toppings,
-                // batter: this.state.waffle.batter,
-                // preferredLocation: this.state.waffle.preferredLocation,
-                // preferredCrispness: this.state.waffle.preferredCrispness,
-                // imgLink: this.state.waffle.imgLink
+        axios.post(`/api/v1/${userId}/waffles`, payload)
+            .then(() => {
+                this.getAllWaffles()
             })
-            .then(res => {
-                const wafflesList = [...this.state.waffles]
-                wafflesList.unshift(res.data)
-                this.setState({
-                    newWaffle: {
-                        batter: '',
-                        toppings: '',
-                        preferredCrispness: '',
-                        preferredLocation: '',
-                        imgLink: ''
-                    },
-                    isWaffleFormDisplayed: false,
-                    waffles: wafflesList
-                })
-            })
-            // .catch(err => console.log(err))
+            .catch(err => console.log(err))
     }
 
     handleChange = (e) => {
-        const newWaffle = { ...this.state.waffle }
-        
+
+        const newWaffle = { ...this.state.newWaffle }
+
         newWaffle[e.target.name] = e.target.value
-       
+
         this.setState({ newWaffle: newWaffle })
-        
+
     }
 
-    updateWaffle = (waffle, e) => {
-        const userId = this.props.match.params.userId
-        axios.patch(`/api/v1/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
-            this.setState({ waffless: res.data.waffles })
-        })
-    }
+    // updateWaffle = (waffle, e) => {
+    //     const userId = this.props.match.params.userId
+    //     axios.patch(`/api/v1/users/${userId}/waffles/${waffle._id}`, { waffle }).then(res => {
+    //         this.setState({ waffless: res.data.waffles })
+    //     })
+    // }
     render() {
         return (
             <div>
@@ -110,7 +97,7 @@ class Waffles extends Component {
                                 <Link
                                     to={`/${waffle._id}`}
                                 >
-                                    {waffle.batter}
+                                   <img src={waffle.imgLink}></img>
                                 </Link>
                             </div>
                         )
@@ -118,8 +105,8 @@ class Waffles extends Component {
                 }
                 <FormWaffle>
                     <button onClick={this.toggleWaffleForm}>+ New Waffle</button>
-                    
-        
+
+
                     {
                         this.state.isWaffleFormDisplayed
                             ? <form onSubmit={this.createWaffle}>
@@ -170,7 +157,7 @@ class Waffles extends Component {
                                         id="imgLink"
                                         type="text"
                                         name="imgLink"
-                                        defaultValue={this.state.newWaffle.preferredLocation}
+                                        defaultValue={this.state.newWaffle.imgLink}
                                         onChange={this.handleChange}
                                     />
                                 </div>

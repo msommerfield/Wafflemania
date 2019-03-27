@@ -15,11 +15,12 @@ index: (req, res) => {
 
 create: (req, res) => {
     User.findById(req.params.userId)
-    Waffle.create(req.body).then(user => {
-        user.waffles.push(waffle)
-        console.log(waffle)
-        user.save()
-        res.redirect(`/${userId}`)
+    .then(user => {
+        Waffle.create(req.body).then(waffle => {
+            user.waffles.push(waffle)
+            user.save()
+            res.json(waffle)
+        })
     })
 },
 
