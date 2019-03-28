@@ -24,8 +24,5 @@ This application has:
 <img src='./public/images/wireframing/IMG_0802.png' alt="ERDs">
 
 ## Wireframes
-<img src='images/wireframing/IMG_0799.png' alt="Landing Page">
-<img src='images/wireframing/IMG_0800.jpg' alt="Purchase Records and Leave a Review">
+<img src='./public/images/Wireframes.jpg' alt="Landing Page">
 
-//Update images
-//Update Heroku Link
