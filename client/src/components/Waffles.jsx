@@ -4,24 +4,41 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 const FormWaffle = styled.div`
-    /* display: flex; */
+    display: flex;
     font-family: 'Domine', serif;
     justify-content: center;
     color: white;
+    text-shadow: 2px 2px 4px #000000;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Domine', serif;
+    color: white;
+    align-items: center;
+    padding: 20px 20px;
 `;
 
 const FancyFont = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-family: 'Pacifico', cursive;
     color: white;
+    text-shadow: 2px 2px 4px #000000;
 `;
 
 const Pics = styled.div`
-img {
-    width: 250px;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+img {
+    /* display: flex; */
+    width: 250px;
+    height: auto;
+    /* justify-content: center;
+    align-items: center;
+    flex-direction: row; */
 }
 `;
 
@@ -153,7 +170,7 @@ class Waffles extends Component {
                                         onChange={this.handleChange}
                                     />
                                 </div>
-                                <button>Create</button>
+                                <button>Make that Waffle</button>
                             </form>
                             : null
                     }

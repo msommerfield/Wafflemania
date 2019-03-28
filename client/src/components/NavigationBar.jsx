@@ -13,7 +13,8 @@ const Wrapper = styled.div`
     text-decoration: none;
     font-family: 'Pacifico', cursive;
     font-size: 25px;
-    cursor: pointer
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #000000;
     }
     `
 

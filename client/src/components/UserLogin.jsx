@@ -15,11 +15,14 @@ const WaffleLogo = styled.div`
     color: white;
     font-size: 130px;
     font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px #000000;
 `;
 
 const FormWaffle = styled.div`
     font-family: 'Domine', serif;
     justify-content: space-around;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
 `;
 
 class UserLogin extends Component {

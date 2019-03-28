@@ -12,6 +12,30 @@ const PrimaryButton = styled.button`
     font-size: 1em; 
     `;
 
+const FormWaffle = styled.div`
+display: flex;
+font-family: 'Domine', serif;
+justify-content: center;
+text-shadow: 2px 2px 4px #000000;
+display: flex;
+flex-direction: column;
+font-family: 'Domine', serif;
+color: white;
+align-items: center;
+padding: 20px 20px;
+text-decoration: none;
+`;
+
+const FancyFont = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: 'Pacifico', cursive;
+color: white;
+text-shadow: 2px 2px 4px #000000;
+`;
+
 class User extends Component {
     state = {
         users: [],
@@ -50,10 +74,7 @@ class User extends Component {
             const filteredUsers = copiedUsers.filter(user => user._id !== res.data._id)
             this.setState({ users: filteredUsers, redirectToHome: true })
         })
-
     }
-
-
     render() {
         if (this.state.redirectToHome) {
             return (<Redirect to={{
@@ -63,19 +84,23 @@ class User extends Component {
         }
         return (
             <div>
-                <h1>Waffle Enthusiasts</h1>
+                <FancyFont>
+                    <h1>Waffle Enthusiasts</h1>
+                </FancyFont>
                 {
                     this.state.users.map(user => {
                         return (
                             <div>
-                                <Link
-                                    to={`/${user._id}/waffles`}
-                                >
-                                    {user.userName}
-                                </Link>
-                                <div>
-                                    <PrimaryButton onClick={this.deleteUser}>Delete</PrimaryButton>
-                                </div>
+                                <FormWaffle>
+                                    <Link
+                                        to={`/${user._id}/waffles`}
+                                    >
+                                        {user.userName}
+                                    </Link>
+                                    <div>
+                                        <PrimaryButton onClick={this.deleteUser}>Delete</PrimaryButton>
+                                    </div>
+                                </FormWaffle>
                             </div>
                         )
                     })

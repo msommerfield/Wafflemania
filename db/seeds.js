@@ -29,10 +29,18 @@ const cheddar = new Waffle({
     imgLink: 'https://s3-media4.fl.yelpcdn.com/bphoto/CQpHL20EU6oLvcqQY-KF-A/348s.jpg'
 })
 
+const funfetti = new Waffle({
+    batter: 'Funfetti',
+    toppings: 'Whipped Cream + Sprinkles',
+    preferredCrispness: 'extra crispy',
+    preferredLocation: 'at home',
+    imgLink: 'https://food-fanatic-res.cloudinary.com/iu/s--Xa460vMZ--/t_large/cs_srgb,f_auto,fl_strip_profile.lossy,q_auto:420/v1465137925/funfetti-waffles-photo.jpg'
+})
+
 const fred = new User({
     userName: 'Freddy_bear',
     password: 'barkymutt',
-    waffles: [savory, peacan] 
+    waffles: [savory, peacan, funfetti] 
 })
 
 const sadie = new User({
@@ -44,6 +52,6 @@ const sadie = new User({
 User.deleteMany({})
     .then(() => Waffle.deleteMany({}))
     .then(() => User.create(fred, sadie))
-    .then(() => Waffle.create(savory, peacan, cheddar))
+    .then(() => Waffle.create(savory, peacan, cheddar, funfetti))
     .catch((err) => console.log(err))
     .then(() => mongoose.connection.close())
