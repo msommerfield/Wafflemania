@@ -21,8 +21,8 @@ This application has:
 *Deployed online and accessible to the public via Heroku
 
 ## ERDs
-<img src='./public/images/wireframing/IMG_0802.png' alt="ERDs">
+<a href="https://imgur.com/ddQSRD1"><img src="https://i.imgur.com/ddQSRD1.png" title="source: imgur.com" /></a>
 
 ## Wireframes
-<img src='./public/images/Wireframes.jpg' alt="Landing Page">
+<a href="https://imgur.com/KLLJHeQ"><img src="https://i.imgur.com/KLLJHeQ.png?1" title="source: imgur.com" /></a>
 
